@@ -47,11 +47,6 @@ def color_choice(_sign):
     choices = {'11': 0, '22': 1, '33': 2}
     return choices.get(_sign[:2], 0)
 
-def send(v):
-    ser.write('s')
-    ser.write(v)
-    ser.write('e')
-
 message = QR_detect()    # 识别二维码,返回二维码信息
 detect_color(color_choice(message))    # 识别颜色
 ser.write('1')
