@@ -16,10 +16,9 @@ sensor.set_framesize(sensor.QVGA)
 sensor.skip_frames(time=2000)
 sensor.set_auto_gain(False)  # 关闭自动增益
 sensor.set_auto_whitebal(False)  # 关闭自动白平衡
-ser = UART(3,19200)
+ser = UART(3,9600)
 clock = time.clock()
 ld1 = pyb.LED(1)
-ld2 = pyb.LED(2)
 ld3 = pyb.LED(3)
 
 def detect_color(_index):
