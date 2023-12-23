@@ -1,7 +1,3 @@
-# Single Color RGB565 Blob Tracking Example
-#
-# This example shows off single color RGB565 tracking using the OpenMV Cam.
-
 import sensor
 import time
 import math
@@ -35,22 +31,10 @@ def detect_color(_index):
             pixels_threshold=2000,
             merge=True
         ):
-            # These values depend on the blob not being circular - otherwise they will be shaky.
-
-            # img.draw_rectangle(blob.rect())
-            # 绘制中心十字
-            # img.draw_cross(blob.cx(), blob.cy())
-            # 绘制中心圈
-            # img.draw_keypoints(
-            #     [(blob.cx(), blob.cy(), int(math.degrees(blob.rotation())))], size=20
-            # )
-#            print(blob.rect())
             if blob.rect() != None:
                 ld1.off()
-#                ld2.off()
                 ld3.off()
                 return 1
-#                print(1)
 
 def QR_detect():
     while True:
