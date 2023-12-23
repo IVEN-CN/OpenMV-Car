@@ -4,10 +4,10 @@ from pyb import UART
 import pyb
 
 thresholds = [
-    (53, 76, 27, 105, 3, 127),  # generic_red_thresholds
-    (0, 100, -128, 125, -88, -24),  # generic_green_thresholds
-    (0, 100, -128, 125, -59, -32),
-]  # generic_blue_thresholds
+    (53, 76, 27, 105, 3, 127),  # red_thresholds
+    (0, 100, -128, 125, -88, -24),  # green_thresholds
+    (0, 100, -128, 125, -59, -32),  # blue_thresholds
+]  
 
 sensor.reset()
 sensor.set_pixformat(sensor.RGB565)  # 设置图像格式为RGB565
