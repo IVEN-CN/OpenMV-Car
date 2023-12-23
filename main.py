@@ -1,6 +1,5 @@
 import sensor
 import time
-import math
 from pyb import UART
 import pyb
 
