@@ -49,6 +49,7 @@ def color_choice(_sign):
     return choices.get(_sign[:2], 0)
 
 message = QR_detect()    # 识别二维码,返回二维码信息
+print(message)
 detect_color(color_choice(message))    # 识别颜色
 ser.write('1')  # 发送信号给单片机,开始执行任务
 
