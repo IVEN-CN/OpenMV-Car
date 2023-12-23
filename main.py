@@ -21,6 +21,8 @@ ld3 = pyb.LED(3)
 
 def detect_color(_index):
     """识别颜色"""
+    ld1.on()
+    ld3.on()
     while True:
         img = sensor.snapshot()
         for blob in img.find_blobs(
@@ -28,8 +30,6 @@ def detect_color(_index):
             pixels_threshold=2000,  # 识别到的颜色块像素阈值
             merge=True              # 合并颜色块
         ):
-            ld1.on()
-            ld3.on()
             if blob.rect() != None:
                 ld1.off()
                 ld3.off()
