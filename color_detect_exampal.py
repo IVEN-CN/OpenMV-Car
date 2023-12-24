@@ -11,10 +11,10 @@ threshold_index = 0  # 0表示红色，1表示绿色，2表示蓝色
 # 颜色跟踪阈值 (L最小值, L最大值, A最小值, A最大值, B最小值, B最大值)
 # 下面的阈值用于跟踪一般的红色/绿色/蓝色物体。您可以根据需要进行调整...
 thresholds = [
-    (30, 100, 15, 127, 15, 127),  # 通用红色阈值
-    (30, 100, -64, -8, -32, 32),  # 通用绿色阈值
-    (0, 30, 0, 64, -128, 0),
-]  # 通用蓝色阈值
+    (53, 71, 51, 87, -12, 51),  # red_thresholds
+    (35, 71, -45, -7, -23, 50),  # green_thresholds
+    (16, 61, 14, 59, -96, -33),  # blue_thresholds
+]
 
 sensor.reset()
 sensor.set_pixformat(sensor.RGB565)
@@ -32,8 +32,8 @@ while True:
     img = sensor.snapshot()
     for blob in img.find_blobs(
         [thresholds[threshold_index]],
-        pixels_threshold=200,
-        area_threshold=200,
+        pixels_threshold=5000,
+        area_threshold=5000,
         merge=True,
     ):
         # 这些值取决于斑点不是圆形的情况 - 否则它们将会抖动。
