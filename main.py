@@ -16,7 +16,7 @@ ld3 = pyb.LED(3)
 
 sensor.reset()
 sensor.set_pixformat(sensor.RGB565)  # 设置图像格式为RGB565
-sensor.set_framesize(sensor.QQVGA)  # 设置图像大小为QVGA，
+sensor.set_framesize(sensor.QVGA)  # 设置图像大小为QVGA，
 sensor.skip_frames(time=2000)  # 使新设置生效，跳过2000帧
 sensor.set_auto_gain(False)  # 关闭自动增益
 sensor.set_auto_whitebal(False)  # 关闭自动白平衡
