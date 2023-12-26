@@ -4,9 +4,9 @@ from pyb import UART
 import pyb
 
 thresholds = [
-    (35, 76, 12, 81, 8, 127),  # red_thresholds
-    (35, 71, -45, -7, -23, 50),  # green_thresholds
-    (16, 61, 14, 59, -96, -33),  # blue_thresholds
+    (30, 66, 7, 109, -54, 94),  # red_thresholds
+    (20, 96, -73, -23, -31, 48),  # green_thresholds
+    (12, 43, -17, 40, -60, 6),  # blue_thresholds
 ]
 
 ser = UART(3, 9600)  # 初始化串口,波特率为9600,串口3,即P4,P5
@@ -46,7 +46,7 @@ def QR_detect() -> function:
     """识别二维码"""
     ld1.on()
     sensor.reset()
-    sensor.set_framesize(sensor.QVGA)  # 设置图像大小为QVGA，
+    sensor.set_framesize(sensor.QQVGA)  # 设置图像大小为QVGA，
     sensor.set_pixformat(sensor.GRAYSCALE)  # 设置为灰度模式
     # 加强图像对比度，加强黑白边界
     sensor.set_contrast(500)
