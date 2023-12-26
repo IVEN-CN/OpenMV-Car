@@ -8,6 +8,7 @@ thresholds = [
     (20, 96, -73, -23, -31, 48),  # green_thresholds
     (12, 43, -17, 40, -60, 6),  # blue_thresholds
 ]
+thresholds0 = (0, 99)  # 二值化阈值
 
 ser = UART(3, 9600)  # 初始化串口,波特率为9600,串口3,即P4,P5
 ld1 = pyb.LED(1)
@@ -52,7 +53,10 @@ def QR_detect() -> function:
     while True:
         img = sensor.snapshot()
         img.lens_corr(1.8)
-        img.histeq()
+        # img.histeq()
+        # 二值化
+#        img.binary([thresholds0])
+#        img.invert()
         for data in img.find_qrcodes():
             ld1.off()
             return data.payload(), send_loop(2)
