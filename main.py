@@ -46,11 +46,11 @@ def QR_detect():
     sensor.reset()
     sensor.set_framesize(sensor.QVGA)   # 设置图像大小为QVGA，
     sensor.set_pixformat(sensor.GRAYSCALE)  # 设置为灰度模式
+    # 加强图像对比度，加强黑白边界
+    sensor.set_contrast(500)
     sensor.skip_frames(time=2000)   # 使新设置生效，跳过2000帧
     sensor.set_auto_gain(False)  # 关闭自动增益
     sensor.set_auto_whitebal(False)  # 关闭自动白平衡
-    # 加强图像对比度
-    sensor.set_contrast(3)
     while True:
         img = sensor.snapshot()
         img.lens_corr(1.8)
