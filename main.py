@@ -14,18 +14,19 @@ ld1 = pyb.LED(1)
 ld2 = pyb.LED(2)
 ld3 = pyb.LED(3)
 
+sensor.reset()
+sensor.set_pixformat(sensor.RGB565)  # 设置图像格式为RGB565
+sensor.set_framesize(sensor.QQVGA)  # 设置图像大小为QVGA，
+sensor.skip_frames(time=2000)  # 使新设置生效，跳过2000帧
+sensor.set_auto_gain(False)  # 关闭自动增益
+sensor.set_auto_whitebal(False)  # 关闭自动白平衡
 
 def detect_color(_index: int) -> function:
     """识别颜色"""
     ld1.on()
     ld2.on()
     ld3.on()
-    sensor.reset()
-    sensor.set_framesize(sensor.QVGA)  # 设置图像大小为QVGA，
     sensor.set_pixformat(sensor.RGB565)  # 设置图像格式为RGB565
-    sensor.skip_frames(time=2000)  # 使新设置生效，跳过2000帧
-    sensor.set_auto_gain(False)  # 关闭自动增益
-    sensor.set_auto_whitebal(False)  # 关闭自动白平衡
     while True:
         img = sensor.snapshot()
         img.lens_corr(1.8)
@@ -45,17 +46,13 @@ def detect_color(_index: int) -> function:
 def QR_detect() -> function:
     """识别二维码"""
     ld1.on()
-    sensor.reset()
-    sensor.set_framesize(sensor.QQVGA)  # 设置图像大小为QVGA，
     sensor.set_pixformat(sensor.GRAYSCALE)  # 设置为灰度模式
     # 加强图像对比度，加强黑白边界
-    sensor.set_contrast(500)
-    sensor.skip_frames(time=2000)  # 使新设置生效，跳过2000帧
-    sensor.set_auto_gain(False)  # 关闭自动增益
-    sensor.set_auto_whitebal(False)  # 关闭自动白平衡
+    sensor.set_contrast(3)
     while True:
         img = sensor.snapshot()
         img.lens_corr(1.8)
+        img.histeq()
         for data in img.find_qrcodes():
             ld1.off()
             return data.payload(), send_loop(2)
