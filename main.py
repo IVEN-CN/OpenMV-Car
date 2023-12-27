@@ -8,8 +8,6 @@ thresholds = [
     (20, 96, -73, -23, -31, 48),  # green_thresholds
     (12, 43, -17, 40, -60, 6),  # blue_thresholds
 ]
-thresholds0 = (0, 99)  # 二值化阈值
-
 ser = UART(3, 9600)  # 初始化串口,波特率为9600,串口3,即P4,P5
 ld1 = pyb.LED(1)
 ld2 = pyb.LED(2)
@@ -34,10 +32,10 @@ def detect_color(_index: int) -> function:
         for blob in img.find_blobs(
                 [thresholds[_index]],  # 选择颜色,0为红色,1为绿色,2为蓝色
                 pixels_threshold=20000,  # 识别到的颜色块像素阈值
-                area_threshold=20000,
+                area_threshold=20000,   # 识别到的颜色块面积阈值
                 merge=True  # 合并颜色块
         ):
-            if blob.rect() is not None:
+            if blob.rect() is not None: # 如果识别到颜色块
                 ld1.off()
                 ld2.off()
                 ld3.off()
@@ -52,25 +50,21 @@ def QR_detect() -> function:
     sensor.set_contrast(3)
     while True:
         img = sensor.snapshot()
-        img.lens_corr(1.8)
-        # img.histeq()
-        # 二值化
-#        img.binary([thresholds0])
-#        img.invert()
-        for data in img.find_qrcodes():
+        img.lens_corr(1.8)  # 图像畸变矫正
+        for data in img.find_qrcodes(): # 识别二维码,返回二维码信息
             ld1.off()
-            return data.payload(), send_loop(2)
+            return data.payload(), send_loop(2) # 发送信号给单片机,开始执行任务
 
 
-def color_choice(_sign):
+def color_choice(_sign:str) -> int:
     """选择颜色"""
     choices = {'11': 0, '22': 1, '33': 2}
     return choices.get(_sign[:2], 0)
 
 
-def send_loop(sign):
+def send_loop(sign:int) -> None:
     dict = {1: b'1', 2: b'2'}
-    mes = dict.get(sign, None)
+    mes = dict.get(sign, None)  
     for i in range(3):
         time.sleep(0.01)
         ser.write(mes)  # 发送信号给单片机,开始执行任务
