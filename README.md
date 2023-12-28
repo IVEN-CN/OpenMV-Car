@@ -1,2 +1,9 @@
 # 探索者赛道的寻迹小车的视觉模块
-本代码会在OpenMv上运行，使用的OpenMv H7
+本代码会在OpenMv上运行，使用的OpenMv H7。
+
+# 使用方法
+首先应该使用QR_detect文件调整二维码的位置，此文件执行过程识别到二维码会闪烁红灯，将二维码调整到闪烁频率最快，即识别概率最高即可。
+
+然后使用color_detect_exempal文件调整颜色阈值，调整threshold_index的值选择需要调整的颜色，然后将摄像头调整到看到半个色卡，停止运行，使用openmv IDE自带的阈值编辑器调整阈值，将阈值复制到color_detect_exempal中的thresholds列表的对应元组，然后进行光线干扰检验。以此反复，调整三个颜色的阈值，使识别更加精确。
+
+最后将这个thresholds复制到main文件的thresholds，完全覆盖，然后烧入openmv

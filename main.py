@@ -39,7 +39,7 @@ def detect_color(_index: int) -> function:
                 ld1.off()
                 ld2.off()
                 ld3.off()
-                return send_loop(1)  # 发送信号给单片机,开始执行任务
+                return send(1)  # 发送信号给单片机,开始执行任务
 
 
 def QR_detect() -> function:
@@ -53,7 +53,7 @@ def QR_detect() -> function:
         img.lens_corr(1.8)  # 图像畸变矫正
         for data in img.find_qrcodes(): # 识别二维码,返回二维码信息
             ld1.off()
-            return data.payload(), send_loop(2) # 发送信号给单片机,开始执行任务
+            return data.payload(), send(2) # 发送信号给单片机,开始执行任务
 
 
 def color_choice(_sign:str) -> int:
@@ -62,12 +62,9 @@ def color_choice(_sign:str) -> int:
     return choices.get(_sign[:2], 0)
 
 
-def send_loop(sign:int) -> None:
+def send(sign:int) -> None:
     dict = {1: b'1', 2: b'2'}
-    mes = dict.get(sign, None)  
-    for i in range(3):
-        time.sleep(0.01)
-        ser.write(mes)  # 发送信号给单片机,开始执行任务
+    ser.write(dict.get(sign, None))  # 发送信号给单片机,开始执行任务
 
 
 message, _ = QR_detect()  # 识别二维码,返回二维码信息
